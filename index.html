@@ -1,1455 +1,634 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vahaara — Intelligent Systems</title>
-
-  <!-- Fonts -->
+  <title>VAHAARA – Building Intelligent Systems for the Future</title>
+  <meta name="description"
+    content="VAHAARA Private Limited – End-to-end technology solutions: AI, web, mobile, SaaS, startup engineering. Coimbatore, Tamil Nadu." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-
-  <style>
-    :root {
-      --color-bg: #000000;
-      --color-surface: #0d0d0d;
-      --color-surface-soft: #111111;
-      --color-text: #ffffff;
-      --color-text-muted: #c7c7c7;
-      --color-primary: #00ff7f;
-      --color-primary-muted: #00c853;
-      --color-border: #1a2e1a;
-      --color-border-soft: #181818;
-      --shadow-soft: 0 22px 55px rgba(0, 0, 0, 0.8);
-      --radius-lg: 18px;
-      --radius-pill: 999px;
-      --nav-height: 72px;
-      --transition-fast: 0.18s ease-out;
-      --transition-med: 0.26s ease;
-      --container-width: 1080px;
-      --backdrop-blur: 14px;
-    }
-
-    :root[data-theme="light"] {
-      --color-bg: #ffffff;
-      --color-surface: #f4fff4;
-      --color-surface-soft: #ffffff;
-      --color-text: #101010;
-      --color-text-muted: #5a5a5a;
-      --color-border: #d4f5d4;
-      --color-border-soft: #e3f7e3;
-      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.06);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: "DM Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-      transition: background-color var(--transition-med), color var(--transition-med);
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    main {
-      min-height: 100vh;
-    }
-
-    .container {
-      width: 100%;
-      max-width: var(--container-width);
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* NAVBAR */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 40;
-    }
-
-    .nav {
-      position: relative;
-    }
-
-    .nav-inner {
-      height: var(--nav-height);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .nav-blur {
-      position: fixed;
-      inset: 0 auto auto 0;
-      height: var(--nav-height);
-      width: 100%;
-      pointer-events: none;
-      z-index: -1;
-      backdrop-filter: blur(0);
-      background: transparent;
-      border-bottom: 1px solid transparent;
-      transition: backdrop-filter var(--transition-med), background var(--transition-med), border-color var(--transition-med), box-shadow var(--transition-med);
-    }
-
-    .nav-blur.scrolled {
-      backdrop-filter: blur(var(--backdrop-blur));
-      background: rgba(0, 0, 0, 0.86);
-      border-color: rgba(26, 46, 26, 0.7);
-      box-shadow: 0 14px 32px rgba(0, 0, 0, 0.6);
-    }
-
-    :root[data-theme="light"] .nav-blur.scrolled {
-      background: rgba(244, 255, 244, 0.98);
-      border-color: rgba(212, 245, 212, 0.9);
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-mark {
-      width: 20px;
-      height: 20px;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 255, 127, 0.7);
-      background: radial-gradient(circle at 20% 20%, #ffffff, #00ff7f 45%, #000000 80%);
-    }
-
-    .logo-text-main {
-      font-family: "Syne", system-ui, sans-serif;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      font-size: 16px;
-      text-transform: uppercase;
-    }
-
-    .logo-text-sub {
-      font-size: 11px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      font-size: 13px;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 24px;
-    }
-
-    .nav-link {
-      position: relative;
-      padding: 4px 0;
-      color: var(--color-text-muted);
-      transition: color var(--transition-fast);
-    }
-
-    .nav-link::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0%;
-      height: 1px;
-      background: var(--color-primary);
-      transition: width var(--transition-fast);
-    }
-
-    .nav-link:hover {
-      color: var(--color-text);
-    }
-
-    .nav-link:hover::after {
-      width: 100%;
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn {
-      border-radius: var(--radius-pill);
-      border: 1px solid transparent;
-      font-size: 13px;
-      padding: 9px 20px;
-      font-weight: 600;
-      letter-spacing: 0.11em;
-      text-transform: uppercase;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), color var(--transition-fast);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--color-text);
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: var(--color-primary);
-      color: #000000;
-      border-color: var(--color-primary);
-      box-shadow: 0 10px 28px rgba(0, 255, 127, 0.35);
-    }
-
-    :root[data-theme="light"] .btn-primary {
-      background: #000000;
-      color: var(--color-primary);
-      border-color: #000000;
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
-    }
-
-    .btn-outline {
-      background: transparent;
-      border-color: rgba(0, 255, 127, 0.35);
-      color: var(--color-text);
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-    }
-
-    .btn-outline:hover {
-      border-color: var(--color-primary);
-      background: rgba(0, 255, 127, 0.04);
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 12px 34px rgba(0, 255, 127, 0.42);
-    }
-
-    .btn-ghost {
-      border-color: transparent;
-      background: transparent;
-      box-shadow: none;
-      padding-inline: 10px;
-      min-width: 38px;
-    }
-
-    .btn-ghost:hover {
-      background: rgba(0, 255, 127, 0.08);
-    }
-
-    .theme-toggle {
-      width: 36px;
-      height: 36px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(0, 255, 127, 0.35);
-      background: transparent;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .theme-icon {
-      position: absolute;
-      opacity: 0;
-      transform: translateY(8px) scale(0.9);
-      transition: opacity var(--transition-med), transform var(--transition-med);
-    }
-
-    .theme-icon.active {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    /* Hamburger */
-
-    .hamburger {
-      display: none;
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 255, 127, 0.3);
-      background: rgba(0, 0, 0, 0.7);
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
-    }
-
-    :root[data-theme="light"] .hamburger {
-      background: rgba(244, 255, 244, 0.96);
-      border-color: rgba(212, 245, 212, 0.9);
-    }
-
-    .hamburger span,
-    .hamburger span::before,
-    .hamburger span::after {
-      display: block;
-      width: 18px;
-      height: 2px;
-      border-radius: 999px;
-      background: var(--color-text);
-      position: relative;
-      transition: transform var(--transition-med), opacity var(--transition-med), top var(--transition-med), bottom var(--transition-med);
-    }
-
-    .hamburger span::before,
-    .hamburger span::after {
-      content: "";
-      position: absolute;
-      left: 0;
-    }
-
-    .hamburger span::before {
-      top: -5px;
-    }
-
-    .hamburger span::after {
-      bottom: -5px;
-    }
-
-    .hamburger.open span {
-      transform: rotate(45deg);
-    }
-
-    .hamburger.open span::before {
-      top: 0;
-    }
-
-    .hamburger.open span::after {
-      bottom: 0;
-      transform: rotate(-90deg);
-    }
-
-    /* LAYOUT / SECTIONS */
-
-    .section {
-      padding: 72px 0;
-    }
-
-    .hero {
-      padding: 40px 0 56px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 56px;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 6px 14px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(0, 255, 127, 0.4);
-      background: rgba(255, 255, 255, 0.02);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-    }
-
-    .badge-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--color-primary);
-    }
-
-    .hero-title {
-      font-family: "Syne", system-ui, sans-serif;
-      font-weight: 800;
-      font-size: clamp(38px, 4.5vw, 64px);
-      line-height: 1.08;
-      letter-spacing: 0.02em;
-      margin: 20px 0 16px;
-    }
-
-    .hero-title span {
-      color: var(--color-primary);
-    }
-
-    .hero-body {
-      max-width: 520px;
-      font-size: 16px;
-      line-height: 1.6;
-      color: var(--color-text-muted);
-      margin-bottom: 26px;
-    }
-
-    .hero-ctas {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 26px;
-    }
-
-    .hero-meta {
-      font-size: 13px;
-      color: var(--color-text-muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .hero-meta span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .hero-meta-indicator {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--color-primary);
-    }
-
-    /* HERO VISUAL */
-
-    .hero-orb-wrapper {
-      position: relative;
-      border-radius: 28px;
-      padding: 16px;
-      background: var(--color-surface-soft);
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
-      min-height: 260px;
-    }
-
-    :root[data-theme="light"] .hero-orb-wrapper {
-      background: #f4fff4;
-      border-color: #d4f5d4;
-    }
-
-    .hero-orb-inner {
-      position: relative;
-      height: 100%;
-      border-radius: 22px;
-      background: radial-gradient(circle at 20% 10%, rgba(0, 255, 127, 0.35), transparent 55%),
-                  radial-gradient(circle at 80% 90%, rgba(0, 200, 83, 0.25), transparent 60%),
-                  linear-gradient(135deg, #050505, #101010);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .orb {
-      position: relative;
-      width: 220px;
-      height: 220px;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 255, 127, 0.45);
-      background:
-        radial-gradient(circle at 30% 20%, #ffffff, #00ff7f 42%, transparent 65%),
-        radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.6), transparent 55%);
-      box-shadow: 0 24px 46px rgba(0, 0, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: orb-rotate 30s linear infinite;
-    }
-
-    .orb-ring {
-      position: absolute;
-      width: 150%;
-      height: 150%;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 255, 127, 0.5);
-      opacity: 0.6;
-      transform: rotateX(65deg);
-      animation: orb-ring 26s linear infinite;
-    }
-
-    .orb-ring:nth-child(2) {
-      width: 130%;
-      height: 130%;
-      opacity: 0.3;
-      animation-duration: 18s;
-      animation-direction: reverse;
-    }
-
-    .orb-core {
-      width: 34%;
-      height: 34%;
-      border-radius: 50%;
-      background: radial-gradient(circle, #00ff7f, #000000 70%);
-    }
-
-    .orb-grid {
-      position: absolute;
-      inset: 30% 2% -35%;
-      background-image: linear-gradient(rgba(0, 255, 127, 0.35) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(0, 255, 127, 0.25) 1px, transparent 1px);
-      background-size: 36px 18px;
-      opacity: 0.2;
-      transform-origin: 50% 100%;
-      transform: perspective(500px) rotateX(72deg);
-    }
-
-    @keyframes orb-rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    @keyframes orb-ring {
-      0% { transform: rotateX(65deg) rotateZ(0deg); }
-      100% { transform: rotateX(65deg) rotateZ(360deg); }
-    }
-
-    .hero-orb-label {
-      position: absolute;
-      bottom: 14px;
-      left: 18px;
-      right: 18px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    :root[data-theme="light"] .hero-orb-label {
-      color: #111111;
-    }
-
-    .hero-orb-chip {
-      padding: 4px 10px;
-      border-radius: var(--radius-pill);
-      border: 1px solid rgba(0, 255, 127, 0.6);
-      font-size: 10px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    :root[data-theme="light"] .hero-orb-chip {
-      background: rgba(244, 255, 244, 0.9);
-    }
-
-    .hero-orb-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 999px;
-      background: var(--color-primary);
-    }
-
-    /* MARQUEE (TAGLINE STRIP) */
-
-    .marquee-strip {
-      border-top: 1px solid var(--color-border-soft);
-      border-bottom: 1px solid var(--color-border-soft);
-      background: rgba(0, 0, 0, 0.94);
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--color-text-muted);
-      overflow: hidden;
-      white-space: nowrap;
-    }
-
-    :root[data-theme="light"] .marquee-strip {
-      background: #f8fff8;
-    }
-
-    .marquee-inner {
-      display: inline-flex;
-      align-items: center;
-      gap: 32px;
-      padding: 9px 0;
-      animation: marquee 30s linear infinite;
-    }
-
-    .marquee-dot {
-      width: 4px;
-      height: 4px;
-      border-radius: 999px;
-      background: var(--color-primary);
-    }
-
-    @keyframes marquee {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* SECTION HEADERS */
-
-    .section-header {
-      margin-bottom: 32px;
-    }
-
-    .section-title {
-      font-family: "Syne", system-ui, sans-serif;
-      font-size: 24px;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin: 0 0 6px;
-    }
-
-    .section-subtitle {
-      max-width: 560px;
-      font-size: 14px;
-      color: var(--color-text-muted);
-    }
-
-    /* WHAT WE BUILD */
-
-    .cards-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 20px;
-      margin-bottom: 24px;
-    }
-
-    .card {
-      border-radius: var(--radius-lg);
-      padding: 20px 18px 22px;
-      border: 1px solid var(--color-border);
-      background: var(--color-surface-soft);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-      transition: transform var(--transition-med), box-shadow var(--transition-med), border-color var(--transition-med), background var(--transition-med);
-    }
-
-    :root[data-theme="light"] .card {
-      background: #ffffff;
-      border-color: #d4f5d4;
-      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.04);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: var(--color-primary);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9);
-    }
-
-    :root[data-theme="light"] .card:hover {
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.09);
-    }
-
-    .card-index {
-      font-size: 11px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--color-primary);
-      margin-bottom: 8px;
-    }
-
-    .card-title {
-      font-family: "Syne", system-ui, sans-serif;
-      font-size: 17px;
-      margin-bottom: 8px;
-    }
-
-    .card-body {
-      font-size: 14px;
-      line-height: 1.7;
-      color: var(--color-text-muted);
-    }
-
-    .section-tagline {
-      text-align: center;
-      font-weight: 600;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      font-size: 13px;
-      color: var(--color-text);
-      margin-top: 6px;
-    }
-
-    /* WHY SECTION */
-
-    .why-section {
-      text-align: center;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .why-quote {
-      font-style: italic;
-      font-size: 18px;
-      line-height: 1.7;
-      margin-bottom: 14px;
-    }
-
-    .why-body {
-      font-size: 15px;
-      color: var(--color-text-muted);
-    }
-
-    /* HOW WE WORK */
-
-    .principles-list {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .principle-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 11px 16px;
-      border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.01);
-      border: 1px solid var(--color-border);
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out, background var(--transition-med), border-color var(--transition-med);
-      opacity: 0;
-      transform: translateY(10px);
-    }
-
-    :root[data-theme="light"] .principle-item {
-      background: #f4fff4;
-      border-color: #d4f5d4;
-    }
-
-    .principle-item.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .principle-item:hover {
-      border-color: var(--color-primary);
-      background: rgba(0, 255, 127, 0.04);
-    }
-
-    .principle-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 255, 127, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .principle-icon svg {
-      width: 14px;
-      height: 14px;
-      color: var(--color-primary);
-    }
-
-    .principle-text {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    /* WHO WE PARTNER WITH */
-
-    .cards-grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .partner-card {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--color-border-soft);
-      padding: 16px 14px;
-      text-align: center;
-      font-size: 14px;
-      line-height: 1.6;
-      color: var(--color-text-muted);
-      background: var(--color-surface-soft);
-      transition: border-color var(--transition-med), box-shadow var(--transition-med), transform var(--transition-med), background var(--transition-med);
-    }
-
-    .partner-card:hover {
-      border-color: var(--color-primary);
-      transform: translateY(-4px);
-      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.8);
-    }
-
-    :root[data-theme="light"] .partner-card {
-      background: #ffffff;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.03);
-    }
-
-    :root[data-theme="light"] .partner-card:hover {
-      box-shadow: 0 16px 34px rgba(0, 0, 0, 0.07);
-    }
-
-    /* LOOKING AHEAD */
-
-    .looking-ahead {
-      text-align: center;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
-    .looking-body {
-      font-size: 15px;
-      color: var(--color-text-muted);
-      margin-bottom: 20px;
-    }
-
-    /* CONTACT BANNER */
-
-    .contact-banner {
-      background: #000000;
-      color: #ffffff;
-      padding: 32px 20px;
-      border-radius: 20px;
-      border: 1px solid rgba(0, 255, 127, 0.5);
-      box-shadow: 0 22px 60px rgba(0, 0, 0, 0.85);
-      position: relative;
-      overflow: hidden;
-    }
-
-    :root[data-theme="light"] .contact-banner {
-      background: #000000;
-      color: #ffffff;
-    }
-
-    .contact-inner {
-      position: relative;
-      text-align: center;
-      max-width: 620px;
-      margin: 0 auto;
-    }
-
-    .contact-title {
-      font-family: "Syne", system-ui, sans-serif;
-      font-size: 24px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .contact-subtext {
-      font-size: 15px;
-      color: rgba(255, 255, 255, 0.82);
-      margin-bottom: 20px;
-    }
-
-    .btn-contact {
-      border-color: rgba(255, 255, 255, 0.8);
-      color: #ffffff;
-      background: transparent;
-    }
-
-    .btn-contact:hover {
-      background: rgba(0, 255, 127, 0.12);
-      border-color: #00ff7f;
-      box-shadow: 0 14px 40px rgba(0, 255, 127, 0.35);
-    }
-
-    /* FOOTER */
-
-    footer {
-      padding: 34px 0 24px;
-      border-top: 1px solid var(--color-border-soft);
-      margin-top: 40px;
-    }
-
-    .footer-grid {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 32px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-
-    .footer-logo {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .footer-tagline {
-      font-size: 14px;
-      color: var(--color-text-muted);
-    }
-
-    .footer-contact {
-      font-size: 13px;
-      color: var(--color-text-muted);
-      display: grid;
-      gap: 4px;
-    }
-
-    .footer-contact-label {
-      font-weight: 600;
-      color: var(--color-text);
-    }
-
-    .footer-bottom {
-      border-top: 1px solid var(--color-border-soft);
-      padding-top: 10px;
-      font-size: 12px;
-      color: var(--color-text-muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    /* REVEAL ANIMATIONS */
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-    }
-
-    .reveal.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal-delay-1 { transition-delay: 0.08s; }
-    .reveal-delay-2 { transition-delay: 0.16s; }
-    .reveal-delay-3 { transition-delay: 0.24s; }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 960px) {
-      .hero-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 40px;
-      }
-
-      .hero-orb-wrapper {
-        order: -1;
-      }
-
-      .cards-grid-3 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .cards-grid-4 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-inner {
-        justify-content: space-between;
-      }
-
-      nav {
-        position: fixed;
-        inset: var(--nav-height) 0 auto 0;
-        background: rgba(0, 0, 0, 0.96);
-        backdrop-filter: blur(14px);
-        border-bottom: 1px solid rgba(26, 46, 26, 0.85);
-        flex-direction: column;
-        gap: 18px;
-        padding: 14px 20px 18px;
-        transform: translateY(-100%);
-        opacity: 0;
-        pointer-events: none;
-        transition: transform var(--transition-med), opacity var(--transition-med);
-      }
-
-      :root[data-theme="light"] nav {
-        background: rgba(244, 255, 244, 0.98);
-        border-color: rgba(212, 245, 212, 0.9);
-      }
-
-      nav.open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .nav-links {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-      }
-
-      .nav-actions {
-        align-self: stretch;
-        justify-content: space-between;
-      }
-
-      .hamburger {
-        display: flex;
-      }
-
-      .hero {
-        padding-top: 24px;
-      }
-
-      .section {
-        padding: 56px 0;
-      }
-
-      .cards-grid-3 {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .cards-grid-4 {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .footer-grid {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-title {
-        font-size: 32px;
-      }
-
-      .hero-orb-wrapper {
-        min-height: 220px;
-      }
-
-      .orb {
-        width: 190px;
-        height: 190px;
-      }
-    }
-  </style>
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <header>
-    <div class="nav-blur" id="navBlur"></div>
-    <div class="container nav">
-      <div class="nav-inner">
-        <a href="#hero" class="logo">
-          <span class="logo-mark"></span>
-          <div>
-            <div class="logo-text-main">VAHAARA</div>
-            <div class="logo-text-sub">Intelligent Systems Studio</div>
-          </div>
-        </a>
-        <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
-          <span></span>
+
+  <!-- ═══════ NAVBAR ═══════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-left">
+        <a href="#" class="nav-logo">VAHAARA</a>
+        <div class="nav-links">
+          <a href="#services">Solutions</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="tgl-track">
+            <span class="tgl-thumb"></span>
+            <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+            </svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+            </svg>
+          </span>
         </button>
-        <nav id="mainNav" aria-label="Main navigation">
-          <div class="nav-links">
-            <a href="#what-we-build" class="nav-link">What we build</a>
-            <a href="#why-vahaara" class="nav-link">Why Vahaara</a>
-          </div>
-          <div class="nav-actions">
-            <button class="btn btn-primary" onclick="scrollToSection('contact')">Contact us</button>
-            <button class="btn btn-ghost theme-toggle" id="themeToggle" aria-label="Toggle color mode">
-              <span class="theme-icon" id="moonIcon" aria-hidden="true">
-                <!-- Moon -->
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <path d="M21 13.1A8 8 0 0111 3a8 8 0 1010 10.1z" stroke="var(--color-primary)" stroke-width="1.6" />
-                </svg>
-              </span>
-              <span class="theme-icon" id="sunIcon" aria-hidden="true">
-                <!-- Sun -->
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="4.2" stroke="var(--color-primary)" stroke-width="1.6" />
-                  <path d="M12 3v2.2M12 18.8V21M4.7 4.7l1.6 1.6M17.7 17.7l1.6 1.6M3 12h2.2M18.8 12H21M4.7 19.3l1.6-1.6M17.7 6.3l1.6-1.6" stroke="var(--color-primary)" stroke-width="1.4" stroke-linecap="round" />
-                </svg>
-              </span>
-            </button>
-          </div>
-        </nav>
+        <button class="btn-outline-sm" onclick="openModal('conversationModal')">Contact Us</button>
+        <button class="btn-cta" onclick="openModal('earlyAccessModal')">Get Early Access</button>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
       </div>
     </div>
-  </header>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#services" onclick="closeMobileMenu()">Solutions</a>
+      <a href="#about" onclick="closeMobileMenu()">About</a>
+      <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+      <div class="mm-actions">
+        <button class="btn-outline-sm" onclick="openModal('conversationModal');closeMobileMenu()">Contact Us</button>
+        <button class="btn-cta" onclick="openModal('earlyAccessModal');closeMobileMenu()">Get Early Access</button>
+      </div>
+    </div>
+  </nav>
 
-  <main>
-    <!-- HERO -->
-    <section id="hero" class="hero">
-      <div class="container">
-        <div class="hero-grid">
-          <div>
-            <div class="badge reveal">
-              <span class="badge-dot"></span>
-              <span>Future-first technology</span>
-            </div>
-            <h1 class="hero-title reveal reveal-delay-1">
-              Building intelligent systems for a world that's <span>moving faster</span>
-            </h1>
-            <p class="hero-body reveal reveal-delay-2">
-              Vahaara designs AI-driven platforms, automation, and digital infrastructure that help organizations think clearly, move efficiently, and scale sustainably.
-            </p>
-            <div class="hero-ctas reveal reveal-delay-3">
-              <button class="btn btn-primary" onclick="scrollToSection('contact')">
-                Start a conversation →
-              </button>
-              <button class="btn btn-outline" onclick="scrollToSection('how-we-work')">
-                Explore our approach
-              </button>
-            </div>
-            <div class="hero-meta reveal reveal-delay-3">
-              <span><span class="hero-meta-indicator"></span>Founder-led</span>
-              <span>Long-term focused</span>
-              <span>Built for scale</span>
-            </div>
+  <!-- ═══════ HERO ═══════ -->
+  <section class="hero" id="home">
+    <div class="hero-text">
+      <p class="hero-trust-label">TRUSTED TECHNOLOGY PARTNER</p>
+      <h1 class="hero-headline">
+        The single platform to<br />
+        <em>design, build, deploy</em><br />
+        and scale your vision.
+      </h1>
+      <p class="hero-sub">From AI agents to mobile apps, SaaS products to embedded systems — VAHAARA engineers the full
+        stack of your future.</p>
+      <div class="hero-ctas">
+        <button class="btn-cta btn-lg" onclick="openModal('conversationModal')">Start a Conversation</button>
+        <button class="btn-ghost btn-lg" onclick="openModal('earlyAccessModal')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          Join Early Access
+        </button>
+      </div>
+      <!-- Trust logos -->
+      <div class="trust-strip">
+        <span class="trust-label">BUILDING FOR</span>
+        <div class="trust-logos">
+          <span class="trust-item">Startups</span>
+          <span class="trust-dot">·</span>
+          <span class="trust-item">Enterprises</span>
+          <span class="trust-dot">·</span>
+          <span class="trust-item">Scale-ups</span>
+          <span class="trust-dot">·</span>
+          <span class="trust-item">Digital Ventures</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CSS landscape illustration -->
+    <div class="hero-landscape" aria-hidden="true">
+      <div class="landscape-scene">
+        <!-- Sky -->
+        <div class="ls-sky"></div>
+        <!-- Mountains back -->
+        <div class="ls-mtn ls-mtn-3"></div>
+        <div class="ls-mtn ls-mtn-2"></div>
+        <div class="ls-mtn ls-mtn-1"></div>
+        <!-- Water reflection -->
+        <div class="ls-water"></div>
+        <!-- Trees -->
+        <div class="ls-tree ls-tree-1">
+          <div class="tree-trunk"></div>
+          <div class="tree-top t-tall"></div>
+        </div>
+        <div class="ls-tree ls-tree-2">
+          <div class="tree-trunk"></div>
+          <div class="tree-top t-round"></div>
+        </div>
+        <div class="ls-tree ls-tree-3">
+          <div class="tree-trunk t-sm"></div>
+          <div class="tree-top t-small"></div>
+        </div>
+        <div class="ls-tree ls-tree-4">
+          <div class="tree-trunk t-sm"></div>
+          <div class="tree-top t-med"></div>
+        </div>
+        <!-- Ground/shore -->
+        <div class="ls-shore"></div>
+        <!-- Mist layers -->
+        <div class="ls-mist ls-mist-1"></div>
+        <div class="ls-mist ls-mist-2"></div>
+        <!-- Floating orb glow -->
+        <div class="ls-glow"></div>
+        <!-- Bench -->
+        <div class="ls-bench">
+          <div class="bench-seat"></div>
+          <div class="bench-leg bl-l"></div>
+          <div class="bench-leg bl-r"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ STATS STRIP ═══════ -->
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat-block">
+        <span class="stat-n">6+</span>
+        <span class="stat-d">Core Service Areas</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-block">
+        <span class="stat-n">AI‑First</span>
+        <span class="stat-d">Engineering Culture</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-block">
+        <span class="stat-n">End-to-End</span>
+        <span class="stat-d">Design→Deploy→Maintain</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="stat-block">
+        <span class="stat-n">Global</span>
+        <span class="stat-d">India & International</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ SCROLL-REVEAL SERVICES ═══════ -->
+  <section class="services-scroll" id="services">
+    <div class="services-header">
+      <span class="section-pill">What We Build</span>
+      <h2 class="services-title">Four pillars of <em>intelligent engineering</em></h2>
+      <p class="services-sub">Every capability you need — under one roof, from idea to global scale.</p>
+    </div>
+
+    <!-- Sticky window + scrolling panels -->
+    <div class="scroll-reveal-wrap">
+
+      <!-- LEFT: sticky "window frame" (the Adaline shoji effect) -->
+      <div class="sticky-window-col">
+        <div class="window-frame">
+          <div class="window-topbar">
+            <div class="wb wb-r"></div>
+            <div class="wb wb-y"></div>
+            <div class="wb wb-g"></div>
+            <span class="window-title" id="windowTitle">AI & Machine Learning</span>
           </div>
-          <div class="hero-orb-wrapper reveal reveal-delay-2" aria-hidden="true">
-            <div class="hero-orb-inner">
-              <div class="orb">
-                <div class="orb-ring"></div>
-                <div class="orb-ring"></div>
-                <div class="orb-core"></div>
-                <div class="orb-grid"></div>
+          <div class="window-body">
+
+            <!-- Panel 1: AI & ML -->
+            <div class="window-panel active" id="panel-1">
+              <div class="panel-landscape">
+                <div class="panel-scene ps-ai">
+                  <div class="ps-node n1"></div>
+                  <div class="ps-node n2"></div>
+                  <div class="ps-node n3"></div>
+                  <div class="ps-node n4"></div>
+                  <div class="ps-node n5"></div>
+                  <div class="ps-node n6"></div>
+                  <div class="ps-edge e1"></div>
+                  <div class="ps-edge e2"></div>
+                  <div class="ps-edge e3"></div>
+                  <div class="ps-edge e4"></div>
+                  <div class="ps-pulse"></div>
+                  <div class="ps-label-top">Neural Network</div>
+                  <div class="ps-bar-row">
+                    <div class="ps-bar" style="--w:88%"><span>Accuracy</span><b>88%</b></div>
+                    <div class="ps-bar" style="--w:72%"><span>Coverage</span><b>72%</b></div>
+                    <div class="ps-bar" style="--w:95%"><span>Uptime</span><b>99.9%</b></div>
+                  </div>
+                </div>
               </div>
-              <div class="hero-orb-label">
-                <span>AI Platforms · Automation · Infra</span>
-                <span class="hero-orb-chip">
-                  <span class="hero-orb-dot"></span>
-                  <span>Signal field online</span>
-                </span>
+            </div>
+
+            <!-- Panel 2: Web & Mobile -->
+            <div class="window-panel" id="panel-2">
+              <div class="panel-landscape">
+                <div class="panel-scene ps-web">
+                  <div class="ps-browser">
+                    <div class="psb-bar">
+                      <div class="psb-dot"></div>
+                      <div class="psb-dot"></div>
+                      <div class="psb-dot"></div>
+                      <div class="psb-url">vahaara.com/app</div>
+                    </div>
+                    <div class="psb-content">
+                      <div class="psb-sidebar">
+                        <div class="si" v="36px"></div>
+                        <div class="si" v="24px"></div>
+                        <div class="si" v="28px"></div>
+                        <div class="si" v="18px"></div>
+                      </div>
+                      <div class="psb-main">
+                        <div class="psb-hero-img"></div>
+                        <div class="psb-cards">
+                          <div class="psb-card"></div>
+                          <div class="psb-card"></div>
+                          <div class="psb-card"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ps-phone">
+                    <div class="ph-notch"></div>
+                    <div class="ph-screen">
+                      <div class="ph-line l1"></div>
+                      <div class="ph-line l2"></div>
+                      <div class="ph-btn"></div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <!-- Tagline strip -->
-      <div class="marquee-strip">
-        <div class="marquee-inner">
-          <span>FOUNDER-LED • LONG-TERM FOCUSED • BUILT FOR SCALE</span>
-          <span class="marquee-dot"></span>
-          <span>FOUNDER-LED • LONG-TERM FOCUSED • BUILT FOR SCALE</span>
-          <span class="marquee-dot"></span>
-          <span>FOUNDER-LED • LONG-TERM FOCUSED • BUILT FOR SCALE</span>
-          <span class="marquee-dot"></span>
-          <span>FOUNDER-LED • LONG-TERM FOCUSED • BUILT FOR SCALE</span>
-        </div>
-      </div>
-    </section>
 
-    <!-- WHAT VAHAARA BUILDS -->
-    <section id="what-we-build" class="section">
-      <div class="container reveal">
-        <div class="section-header">
-          <h2 class="section-title">What we build</h2>
-          <p class="section-subtitle">
-            Purpose-built systems that connect intelligence, automation, and resilient infrastructure into a coherent foundation for modern organizations.
-          </p>
-        </div>
-        <div class="cards-grid-3">
-          <article class="card">
-            <div class="card-index">01</div>
-            <h3 class="card-title">AI Platforms</h3>
-            <p class="card-body">
-              Purpose-built AI systems designed for real business workflows — not experiments.
-            </p>
-          </article>
-          <article class="card">
-            <div class="card-index">02</div>
-            <h3 class="card-title">Automation &amp; Intelligence</h3>
-            <p class="card-body">
-              We automate operations, decisions, and processes that slow organizations down.
-            </p>
-          </article>
-          <article class="card">
-            <div class="card-index">03</div>
-            <h3 class="card-title">Digital Infrastructure</h3>
-            <p class="card-body">
-              Secure, scalable systems that power modern products and institutions.
-            </p>
-          </article>
-        </div>
-        <p class="section-tagline">
-          We don't sell tools. We build systems that work together.
-        </p>
-      </div>
-    </section>
-
-    <!-- WHY VAHAARA -->
-    <section id="why-vahaara" class="section">
-      <div class="container reveal">
-        <div class="section-header">
-          <h2 class="section-title">Why Vahaara</h2>
-        </div>
-        <div class="why-section">
-          <p class="why-quote">
-            "Technology adoption fails not because of lack of tools, but lack of direction."
-          </p>
-          <p class="why-body">
-            Vahaara exists to bring clarity — by building intelligent systems that are focused, usable, and built to last.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOW WE WORK -->
-    <section id="how-we-work" class="section">
-      <div class="container reveal">
-        <div class="section-header">
-          <h2 class="section-title">How we work</h2>
-        </div>
-        <div class="principles-list">
-          <div class="principle-item">
-            <div class="principle-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M5 12.5L10 17.5L19 6.5" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
+            <!-- Panel 3: Startup Engineering -->
+            <div class="window-panel" id="panel-3">
+              <div class="panel-landscape">
+                <div class="panel-scene ps-startup">
+                  <div class="ps-timeline">
+                    <div class="ptl-step done">
+                      <div class="ptl-dot"></div>
+                      <div class="ptl-label">Ideation</div>
+                    </div>
+                    <div class="ptl-line done"></div>
+                    <div class="ptl-step done">
+                      <div class="ptl-dot"></div>
+                      <div class="ptl-label">MVP</div>
+                    </div>
+                    <div class="ptl-line done"></div>
+                    <div class="ptl-step active">
+                      <div class="ptl-dot"></div>
+                      <div class="ptl-label">Scale</div>
+                    </div>
+                    <div class="ptl-line"></div>
+                    <div class="ptl-step">
+                      <div class="ptl-dot"></div>
+                      <div class="ptl-label">Global</div>
+                    </div>
+                  </div>
+                  <div class="ps-rocket">🚀</div>
+                  <div class="ps-metric-grid">
+                    <div class="pmg-item"><span class="pmg-n">6wk</span><span class="pmg-l">MVP Time</span></div>
+                    <div class="pmg-item"><span class="pmg-n">100%</span><span class="pmg-l">Tech Support</span></div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="principle-text">Problem first, technology second</div>
-          </div>
-          <div class="principle-item">
-            <div class="principle-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M5 12.5L10 17.5L19 6.5" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <div class="principle-text">Design for real usage</div>
-          </div>
-          <div class="principle-item">
-            <div class="principle-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M5 12.5L10 17.5L19 6.5" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <div class="principle-text">Build for scale from day one</div>
-          </div>
-          <div class="principle-item">
-            <div class="principle-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M5 12.5L10 17.5L19 6.5" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <div class="principle-text">Move fast, but with intent</div>
-          </div>
-          <div class="principle-item">
-            <div class="principle-icon">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path d="M5 12.5L10 17.5L19 6.5" stroke="var(--color-primary)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </div>
-            <div class="principle-text">Long-term thinking over short-term wins</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- WHO WE PARTNER WITH -->
-    <section id="who-we-partner-with" class="section">
-      <div class="container reveal">
-        <div class="section-header">
-          <h2 class="section-title">Who we partner with</h2>
-        </div>
-        <div class="cards-grid-4">
-          <article class="partner-card">
-            Startups building foundational products
-          </article>
-          <article class="partner-card">
-            Enterprises modernizing internal systems
-          </article>
-          <article class="partner-card">
-            Institutions exploring AI-driven transformation
-          </article>
-          <article class="partner-card">
-            Teams looking for long-term technology partners
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- LOOKING AHEAD -->
-    <section id="looking-ahead" class="section">
-      <div class="container reveal">
-        <div class="section-header">
-          <h2 class="section-title">Looking ahead</h2>
-        </div>
-        <div class="looking-ahead">
-          <p class="looking-body">
-            Vahaara is continuously building next-generation platforms and systems. Some will remain internal. Some will evolve into standalone products.
-          </p>
-          <button class="btn btn-primary" onclick="scrollToSection('contact')">
-            Join early access
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT / CTA BANNER -->
-    <section id="contact" class="section">
-      <div class="container reveal">
-        <div class="contact-banner">
-          <div class="contact-inner">
-            <h2 class="contact-title">Let's build something meaningful</h2>
-            <p class="contact-subtext">
-              If you're exploring AI, automation, or intelligent systems — let's talk.
-            </p>
-            <button class="btn btn-contact">
-              Contact Vahaara
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-logo">
-          <div class="logo">
-            <span class="logo-mark"></span>
-            <div>
-              <div class="logo-text-main">VAHAARA</div>
-              <div class="logo-text-sub">Intelligent Systems Studio</div>
+            <!-- Panel 4: SaaS & Cloud -->
+            <div class="window-panel" id="panel-4">
+              <div class="panel-landscape">
+                <div class="panel-scene ps-saas">
+                  <div class="ps-cloud-arch">
+                    <div class="pca-box pca-top">SaaS Core</div>
+                    <div class="pca-line v"></div>
+                    <div class="pca-mid-row">
+                      <div class="pca-box">API Layer</div>
+                      <div class="pca-line h"></div>
+                      <div class="pca-box">Auth</div>
+                      <div class="pca-line h"></div>
+                      <div class="pca-box">DB</div>
+                    </div>
+                    <div class="pca-line v"></div>
+                    <div class="pca-mid-row">
+                      <div class="pca-box pca-green">Edge CDN</div>
+                      <div class="pca-line h"></div>
+                      <div class="pca-box pca-green">Auto-Scale</div>
+                    </div>
+                  </div>
+                  <div class="ps-uptime">
+                    <span class="pu-dot"></span>
+                    <span>99.99% SLA</span>
+                  </div>
+                </div>
+              </div>
             </div>
+
           </div>
-          <p class="footer-tagline">Building intelligent systems for the future.</p>
-        </div>
-        <div class="footer-contact">
-          <div>
-            <span class="footer-contact-label">Email:</span> your-email@example.com
-          </div>
-          <div>
-            <span class="footer-contact-label">Phone:</span> +1 (555) 123-4567
-          </div>
-          <div>
-            <span class="footer-contact-label">Location:</span> Your City, Your State
+          <!-- Pillar nav dots -->
+          <div class="window-nav">
+            <button class="wn-dot active" data-panel="1" aria-label="AI & ML"></button>
+            <button class="wn-dot" data-panel="2" aria-label="Web & Mobile"></button>
+            <button class="wn-dot" data-panel="3" aria-label="Startup Engineering"></button>
+            <button class="wn-dot" data-panel="4" aria-label="SaaS & Cloud"></button>
           </div>
         </div>
       </div>
-      <div class="footer-bottom">
-        <span>© 2025 Vahaara. All rights reserved.</span>
+
+      <!-- RIGHT: scrolling content panels -->
+      <div class="scrolling-panels-col">
+
+        <div class="scroll-panel" data-panel="1">
+          <div class="sp-pill">01 — AI & INTELLIGENCE</div>
+          <h3 class="sp-title">Autonomous AI systems that think, learn, and act</h3>
+          <p class="sp-desc">We deploy production-ready AI agents, machine learning models, and automation pipelines
+            that create real, measurable business outcomes. From chatbots that handle thousands of queries to ML models
+            that predict churn — we build intelligence that scales.</p>
+          <ul class="sp-features">
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>AI Agents & Multi-agent Systems
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Machine Learning & Data Pipelines
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Natural Language Processing
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Automation & RPA Tools
+            </li>
+          </ul>
+        </div>
+
+        <div class="scroll-panel" data-panel="2">
+          <div class="sp-pill">02 — WEB & MOBILE</div>
+          <h3 class="sp-title">Digital products your users will love from day one</h3>
+          <p class="sp-desc">We craft high-performance web applications, responsive websites, and cross-platform mobile
+            apps (Android, iOS) that combine beautiful design with engineering rigor. From your landing page to your
+            core product — we build it right.</p>
+          <ul class="sp-features">
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Web Application Development
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Android & iOS Apps
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>UI/UX Design & Prototyping
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Cross-platform Digital Products
+            </li>
+          </ul>
+        </div>
+
+        <div class="scroll-panel" data-panel="3">
+          <div class="sp-pill">03 — STARTUP ENGINEERING</div>
+          <h3 class="sp-title">From blank page to funded product — we build alongside you</h3>
+          <p class="sp-desc">We're the technical co-pilot for founders and product leaders. Whether you need an MVP in 6
+            weeks, a technical consultant to validate your architecture, or end-to-end engineering for your Series A
+            product — VAHAARA delivers with startup velocity.</p>
+          <ul class="sp-features">
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>MVP Development (6–8 weeks)
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Product Engineering & Roadmapping
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Technical Advisory & CTO-as-a-service
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>End-to-end Tech Support
+            </li>
+          </ul>
+        </div>
+
+        <div class="scroll-panel" data-panel="4">
+          <div class="sp-pill">04 — SAAS & CLOUD</div>
+          <h3 class="sp-title">Build once. Deploy globally. Scale infinitely.</h3>
+          <p class="sp-desc">We design and operate SaaS platforms and cloud-native applications that grow with your
+            business — built for reliability, multi-tenancy, and global delivery. From your internal tooling to your
+            flagship product, we architect for the long run.</p>
+          <ul class="sp-features">
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>SaaS Platform Development
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Cloud Architecture (AWS/GCP/Azure)
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>Multi-tenant Platform Design
+            </li>
+            <li>
+              <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 6L9 17l-5-5" />
+                </svg></div>DevOps, CI/CD & Monitoring
+            </li>
+          </ul>
+        </div>
+
       </div>
+    </div>
+  </section>
+
+  <!-- ═══════ EMBEDDED SYSTEMS BANNER ═══════ -->
+  <div class="extra-service-band">
+    <div class="esb-inner">
+      <div class="esb-icon">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="2" y="2" width="20" height="20" rx="2" />
+          <rect x="7" y="7" width="3" height="3" />
+          <rect x="14" y="7" width="3" height="3" />
+          <rect x="7" y="14" width="3" height="3" />
+          <rect x="14" y="14" width="3" height="3" />
+        </svg>
+      </div>
+      <div class="esb-text">
+        <h4>+ Embedded Systems & Hardware</h4>
+        <p>We also design and develop embedded software, electronic hardware products, and full system integrations for
+          real-world IoT and industrial applications.</p>
+      </div>
+      <button class="btn-outline-sm" onclick="openModal('conversationModal')">Learn More →</button>
+    </div>
+  </div>
+
+  <!-- ═══════ ABOUT / PHILOSOPHY ═══════ -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-left">
+        <span class="section-pill">Who We Are</span>
+        <h2 class="about-title">Technology that <em>actually works</em> — delivered end-to-end.</h2>
+        <p class="about-p">VAHAARA Private Limited is a deep-tech company headquartered in Coimbatore, Tamil Nadu. We
+          carry on the business of providing comprehensive technology solutions spanning design, development,
+          customization, implementation, and long-term maintenance of software, IT systems, embedded products, and AI
+          applications.</p>
+        <p class="about-p">We work with startups, enterprises, and everything in between — across India and globally —
+          with a single mission: to build intelligent systems that endure.</p>
+        <div class="about-cards">
+          <div class="about-card"><span class="ac-num">01</span><span class="ac-txt">Build fast, build right</span>
+          </div>
+          <div class="about-card"><span class="ac-num">02</span><span class="ac-txt">AI-first mindset</span></div>
+          <div class="about-card"><span class="ac-num">03</span><span class="ac-txt">Full lifecycle ownership</span>
+          </div>
+          <div class="about-card"><span class="ac-num">04</span><span class="ac-txt">Global-ready engineering</span>
+          </div>
+        </div>
+      </div>
+      <div class="about-right">
+        <!-- CSS geometric artwork -->
+        <div class="about-art" aria-hidden="true">
+          <div class="art-ring ar-1"></div>
+          <div class="art-ring ar-2"></div>
+          <div class="art-ring ar-3"></div>
+          <div class="art-core">V</div>
+          <div class="art-dot dot-1"></div>
+          <div class="art-dot dot-2"></div>
+          <div class="art-dot dot-3"></div>
+          <div class="art-dot dot-4"></div>
+          <div class="art-label al-1">Coimbatore, TN</div>
+          <div class="art-label al-2">India & Global</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ CTA ═══════ -->
+  <section class="cta-section">
+    <div class="cta-landscape" aria-hidden="true">
+      <div class="cta-sky"></div>
+      <div class="cta-mtn cta-mtn-3"></div>
+      <div class="cta-mtn cta-mtn-2"></div>
+      <div class="cta-mtn cta-mtn-1"></div>
+      <div class="cta-water"></div>
+    </div>
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to build something<br /><em>extraordinary?</em></h2>
+      <p class="cta-sub">Whether you're starting from a blank canvas or scaling an existing product — VAHAARA is your
+        end-to-end technology partner.</p>
+      <div class="cta-btns">
+        <button class="btn-cta btn-lg" onclick="openModal('conversationModal')">Start a Conversation</button>
+        <button class="btn-ghost btn-lg" onclick="openModal('earlyAccessModal')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          Join Early Access
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ FOOTER ═══════ -->
+  <footer class="footer" id="contact">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">VAHAARA</div>
+        <div class="footer-sub">Private Limited</div>
+        <p class="footer-tagline">Building intelligent systems for the future.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Solutions</h5>
+        <a href="#services">AI & Machine Learning</a>
+        <a href="#services">Web Development</a>
+        <a href="#services">Mobile Apps</a>
+        <a href="#services">Startup Engineering</a>
+        <a href="#services">SaaS & Cloud</a>
+        <a href="#services">Embedded Systems</a>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <a href="#about">About</a>
+        <a href="#" onclick="openModal('conversationModal');return false">Contact</a>
+        <a href="#" onclick="openModal('earlyAccessModal');return false">Early Access</a>
+      </div>
+      <div class="footer-col footer-contact">
+        <h5>Contact</h5>
+        <a href="mailto:vahaara@vahaara.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+            <polyline points="22,6 12,13 2,6" />
+          </svg>
+          vahaara@vahaara.com
+        </a>
+        <a href="tel:+918489939953">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path
+              d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+          </svg>
+          +91 84899 39953
+        </a>
+        <div class="footer-location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          Coimbatore, Tamil Nadu
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 VAHAARA Private Limited. All rights reserved.</span>
     </div>
   </footer>
 
-  <script>
-    // Theme handling
-    const root = document.documentElement;
-    const THEME_KEY = "vahaara-theme";
-    const themeToggle = document.getElementById("themeToggle");
-    const sunIcon = document.getElementById("sunIcon");
-    const moonIcon = document.getElementById("moonIcon");
+  <!-- ═══════ MODAL: CONVERSATION ═══════ -->
+  <div class="modal-overlay" id="conversationModal" onclick="closeModalOnOverlay(event,'conversationModal')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('conversationModal')">✕</button>
+      <h2 class="modal-title">Start a conversation</h2>
+      <form class="modal-form"
+        onsubmit="handleFormSubmit(event,'conversationModal','Message received! We\'ll be in touch soon. 🎉')">
+        <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" required /></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="your.email@company.com" required />
+        </div>
+        <div class="form-group"><label>Company</label><input type="text" placeholder="Your company name" /></div>
+        <div class="form-group"><label>Message</label><textarea rows="4"
+            placeholder="Tell us about your project or inquiry..." required></textarea></div>
+        <button type="submit" class="btn-cta btn-full">Send message</button>
+      </form>
+    </div>
+  </div>
 
-    function applyTheme(theme) {
-      root.setAttribute("data-theme", theme);
-      if (theme === "light") {
-        sunIcon.classList.add("active");
-        moonIcon.classList.remove("active");
-      } else {
-        moonIcon.classList.add("active");
-        sunIcon.classList.remove("active");
-      }
-    }
+  <!-- ═══════ MODAL: EARLY ACCESS ═══════ -->
+  <div class="modal-overlay" id="earlyAccessModal" onclick="closeModalOnOverlay(event,'earlyAccessModal')">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal('earlyAccessModal')">✕</button>
+      <h2 class="modal-title">Join early access</h2>
+      <form class="modal-form"
+        onsubmit="handleFormSubmit(event,'earlyAccessModal','You\'re on the early access list! 🚀')">
+        <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" required /></div>
+        <div class="form-group"><label>Email</label><input type="email" placeholder="your.email@company.com" required />
+        </div>
+        <div class="form-group"><label>What are you interested in?</label><textarea rows="4"
+            placeholder="Tell us what you're looking for..." required></textarea></div>
+        <button type="submit" class="btn-cta btn-full">Request access</button>
+      </form>
+    </div>
+  </div>
 
-    (function initTheme() {
-      try {
-        const stored = localStorage.getItem(THEME_KEY);
-        const preferred = stored || "dark";
-        applyTheme(preferred);
-      } catch (e) {
-        applyTheme("dark");
-      }
-    })();
+  <!-- ═══════ TOAST ═══════ -->
+  <div class="toast" id="toast"></div>
 
-    themeToggle.addEventListener("click", () => {
-      const current = root.getAttribute("data-theme") || "dark";
-      const next = current === "dark" ? "light" : "dark";
-      applyTheme(next);
-      try {
-        localStorage.setItem(THEME_KEY, next);
-      } catch (e) {}
-    });
-
-    // Smooth scroll helper
-    function scrollToSection(id) {
-      const section = document.getElementById(id);
-      if (section) {
-        const headerOffset = parseInt(getComputedStyle(document.documentElement).getPropertyValue("--nav-height"), 10) || 72;
-        const rect = section.getBoundingClientRect();
-        const offset = rect.top + window.scrollY - (headerOffset + 10);
-        window.scrollTo({ top: offset, behavior: "smooth" });
-      }
-    }
-    window.scrollToSection = scrollToSection;
-
-    // Navbar scroll blur
-    const navBlur = document.getElementById("navBlur");
-    function handleScroll() {
-      if (window.scrollY > 10) {
-        navBlur.classList.add("scrolled");
-      } else {
-        navBlur.classList.remove("scrolled");
-      }
-    }
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-
-    // Mobile nav
-    const hamburger = document.getElementById("hamburger");
-    const mainNav = document.getElementById("mainNav");
-
-    hamburger.addEventListener("click", () => {
-      const isOpen = mainNav.classList.toggle("open");
-      hamburger.classList.toggle("open", isOpen);
-      hamburger.setAttribute("aria-expanded", String(isOpen));
-    });
-
-    mainNav.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => {
-        if (window.innerWidth <= 768) {
-          mainNav.classList.remove("open");
-          hamburger.classList.remove("open");
-          hamburger.setAttribute("aria-expanded", "false");
-        }
-      });
-    });
-
-    // Reveal on scroll
-    const revealElements = document.querySelectorAll(".reveal, .principle-item");
-
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
-
-    revealElements.forEach(el => observer.observe(el));
-  </script>
+  <script src="script.js"></script>
 </body>
+
 </html>

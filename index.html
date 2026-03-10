@@ -329,7 +329,8 @@
         <div class="scroll-panel" data-panel="1">
           <div class="sp-pill">01 — AI & INTELLIGENCE</div>
           <h3 class="sp-title">Autonomous AI systems that think, learn, and act</h3>
-          <p class="sp-desc">We build production-ready AI agents, ML models, and automations that directly move your metrics.</p>
+          <p class="sp-desc">We build production-ready AI agents, ML models, and automations that directly move your
+            metrics.</p>
           <ul class="sp-features">
             <li>
               <div class="sp-feat-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -468,8 +469,10 @@
       <div class="about-left">
         <span class="section-pill">Who We Are</span>
         <h2 class="about-title">Technology that <em>actually works</em> — delivered end-to-end.</h2>
-        <p class="about-p">VAHAARA Private Limited is a deep-tech company in Coimbatore, Tamil Nadu, building software, embedded systems, and AI applications.</p>
-        <p class="about-p">We partner with teams of all sizes in India and globally to build intelligent systems that last.</p>
+        <p class="about-p">VAHAARA Private Limited is a deep-tech company in Coimbatore, Tamil Nadu, building software,
+          embedded systems, and AI applications.</p>
+        <p class="about-p">We partner with teams of all sizes in India and globally to build intelligent systems that
+          last.</p>
         <div class="about-cards">
           <div class="about-card"><span class="ac-num">01</span><span class="ac-txt">Build fast, build right</span>
           </div>
@@ -547,12 +550,12 @@
       </div>
       <div class="footer-col footer-contact">
         <h5>Contact</h5>
-        <a href="mailto:vahaara@vahaara.com">
+        <a href="mailto:vahaara.pvt@gmail.com">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
             <polyline points="22,6 12,13 2,6" />
           </svg>
-          vahaara@vahaara.com
+          vahaara.pvt@gmail.com
         </a>
         <a href="tel:+918489939953">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
@@ -579,20 +582,32 @@
   <div class="modal-overlay" id="conversationModal" onclick="closeModalOnOverlay(event,'conversationModal')">
     <div class="modal-box">
       <button class="modal-close" onclick="closeModal('conversationModal')">✕</button>
+
       <h2 class="modal-title">Start a conversation</h2>
+
       <form class="modal-form"
         onsubmit="handleFormSubmit(event,'conversationModal','Message received. We\'ll be in touch shortly.')">
-        <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" required /></div>
-        <div class="form-group"><label>Email</label><input type="email" placeholder="your.email@company.com" required />
+
+        <div class="form-group">
+          <label>Name</label>
+          <input name="name" type="text" placeholder="Your name" required />
         </div>
-        <div class="form-group"><label>Company</label><input type="text" placeholder="Your company name" /></div>
-        <div class="form-group"><label>Message</label><textarea rows="4"
-            placeholder="Tell us about your project or inquiry..." required></textarea></div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input name="email" type="email" placeholder="your.email@company.com" required />
+        </div>
+
+        <div class="form-group">
+          <label>What are you interested in?</label>
+          <textarea name="message" rows="4" placeholder="Tell us about your project..." required></textarea>
+        </div>
+
         <button type="submit" class="btn-cta btn-full">Send message</button>
+
       </form>
     </div>
   </div>
-
   <!-- ═══════ MODAL: EARLY ACCESS ═══════ -->
   <div class="modal-overlay" id="earlyAccessModal" onclick="closeModalOnOverlay(event,'earlyAccessModal')">
     <div class="modal-box">
@@ -600,19 +615,31 @@
       <h2 class="modal-title">Join early access</h2>
       <form class="modal-form"
         onsubmit="handleFormSubmit(event,'earlyAccessModal','You\'re on the early access list.')">
-        <div class="form-group"><label>Name</label><input type="text" placeholder="Your name" required /></div>
-        <div class="form-group"><label>Email</label><input type="email" placeholder="your.email@company.com" required />
+
+        <div class="form-group">
+          <label>Name</label>
+          <input name="name" type="text" placeholder="Your name" required />
         </div>
-        <div class="form-group"><label>What are you interested in?</label><textarea rows="4"
-            placeholder="Tell us what you're looking for..." required></textarea></div>
+
+        <div class="form-group">
+          <label>Email</label>
+          <input name="email" type="email" placeholder="your.email@company.com" required />
+        </div>
+
+        <div class="form-group">
+          <label>What are you interested in?</label>
+          <textarea name="message" rows="4" placeholder="Tell us what you're looking for..." required></textarea>
+        </div>
+
         <button type="submit" class="btn-cta btn-full">Request access</button>
+
       </form>
     </div>
   </div>
 
   <!-- ═══════ TOAST ═══════ -->
   <div class="toast" id="toast"></div>
-
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <script src="script.js"></script>
 </body>
 

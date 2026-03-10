@@ -1,6 +1,15 @@
 /* ─── VAHAARA script.js — Adaline-style redesign ─── */
 
 /* ═══════════════════
+   EMAILJS INIT
+   ═══════════════════ */
+(function () {
+  emailjs.init({
+    publicKey: "xbyIFwNZnVATlDoZe",
+  });
+})();
+
+/* ═══════════════════
    THEME TOGGLE
    ═══════════════════ */
 const html = document.documentElement;
@@ -88,24 +97,48 @@ function showToast(msg, dur = 3800) {
    FORM HANDLING
    ═══════════════════ */
 function handleFormSubmit(e, modalId, successMsg) {
+
   e.preventDefault();
-  const btn = e.target.querySelector('button[type="submit"]');
+
+  const form = e.target;
+  const btn = form.querySelector('button[type="submit"]');
   const orig = btn.textContent;
+
   btn.textContent = 'Sending…';
   btn.disabled = true;
   btn.style.opacity = '0.65';
 
-  setTimeout(() => {
-    btn.textContent = '✓ Done!';
-    btn.style.opacity = '1';
-    setTimeout(() => {
-      closeModal(modalId);
-      e.target.reset();
-      btn.textContent = orig;
+  // Using sendForm for better reliability with modern @emailjs/browser
+  emailjs.sendForm(
+    "service_ndwzm0j",
+    "template_rdw4y76",
+    form
+  )
+    .then(() => {
+
+      btn.textContent = '✓ Done!';
+      btn.style.opacity = '1';
+
+      setTimeout(() => {
+        closeModal(modalId);
+        form.reset();
+        btn.textContent = orig;
+        btn.disabled = false;
+        showToast(successMsg);
+      }, 700);
+
+    })
+    .catch((error) => {
+      console.error('EmailJS Error:', error);
+      btn.textContent = 'Failed ❌';
       btn.disabled = false;
-      showToast(successMsg);
-    }, 700);
-  }, 1400);
+      btn.style.opacity = '1';
+
+      // Provide more specific feedback if possible
+      const errorMsg = error?.text || "Something went wrong. Try again.";
+      showToast(errorMsg);
+    });
+
 }
 
 /* ═══════════════════════════════════════════════
